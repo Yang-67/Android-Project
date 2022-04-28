@@ -10,8 +10,11 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.MouseGame">
         <activity android:name=".IndexActivity"/>
+        <activity android:name=".GameActivity"/>
+        <activity android:name=".SignActivity"/>
+        <activity android:name=".MyActivity"/>
         <activity
-                android:name=".MainActivity"
+                android:name="com.example.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -1,27 +1,44 @@
-package com.example.mousegame;
+package com.example;
 
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Toast;
+import com.example.mousegame.IndexActivity;
+import com.example.mousegame.R;
+import com.example.mousegame.SignActivity;
 
 public class MainActivity extends AppCompatActivity {
     private EditText edtName,edtPwd;
     private Button btnLogin;
-    private CheckBox chkSave,chkLogin;
+    private TextView btnSign;
+    private CheckBox chkSave;
     private String userName,userPwd;
     private boolean isSave,isAuto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign);
-//        initView();
+        setContentView(R.layout.login);
+        initView();
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, IndexActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+        btnSign.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, SignActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
 //        read();
 //        btnLogin.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -41,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
 //                MainActivity.this.startActivity(intent);
 //            }
 //        });
-//    }
-//    void initView(){
-//        edtName=this.findViewById(R.id.edtName);
-//        edtPwd=this.findViewById(R.id.edtPwd);
-//        btnLogin=this.findViewById(R.id.btnLogin);
-//        chkLogin=this.findViewById(R.id.chkLogin);//自动保存
-//        chkSave=this.findViewById(R.id.chkSave);
-//    }
+    }
+    void initView(){
+        edtName=this.findViewById(R.id.et_username);//账号
+        edtPwd=this.findViewById(R.id.et_userpwd);//密码
+        chkSave=this.findViewById(R.id.cb_rm);//记住密码
+        btnSign=this.findViewById(R.id.btn_register);//注册
+        btnLogin=this.findViewById(R.id.btn_login);//登录
+    }
 //    void read(){
 //        SharedPreferences sharedPreferences=getSharedPreferences("userconfig",MODE_PRIVATE);
 //        userName=sharedPreferences.getString("loginname","");
@@ -72,5 +89,5 @@ public class MainActivity extends AppCompatActivity {
 //        editor.putBoolean("loginsave",isSave);
 //        editor.putBoolean("loginauto",isAuto);
 //        editor.commit();
-    }
+//    }
 }

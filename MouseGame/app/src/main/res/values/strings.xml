@@ -9,9 +9,20 @@
     <string name="text">欢乐打地鼠</string>
     <string name="text2">注册</string>
     <string name="text3">返回登录</string>
+    <string name="text4">返回</string>
+    <string name="text5">我的战绩</string>
+    <string name="text6">简单模式</string>
+    <string name="text7">普通模式</string>
+    <string name="text8">困难模式</string>
+    <string name="text9">查看我的战绩</string>
+    <string name="text10">欢迎登录欢乐打地鼠</string>
+    <string name="text11">打到个数</string>
+    <string name="text12">剩余时间</string>
+    <string name="text13">退出</string>
     <string name="signusername">账号：</string>
     <string name="signuserpwd">密码：</string>
     <string name="signuserpwd2">确认密码：</string>
     <string name="userpwd2">请再次输入密码</string>
     <string name="qsign">确认注册</string>
+    <string name="start">开始游戏</string>
 </resources>
