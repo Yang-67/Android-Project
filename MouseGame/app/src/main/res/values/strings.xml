@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MouseGame</string>
-    <string name="username">请输入账号</string>
-    <string name="userpwd">请输入密码</string>
+    <string name="username">请输入账号(最多8位)</string>
+    <string name="userpwd">请输入密码(最多8位)</string>
     <string name="checkpwd">记住密码</string>
     <string name="sign">注册</string>
     <string name="login">登录</string>
@@ -22,7 +22,7 @@
     <string name="signusername">账号：</string>
     <string name="signuserpwd">密码：</string>
     <string name="signuserpwd2">确认密码：</string>
-    <string name="userpwd2">请再次输入密码</string>
+    <string name="userpwd2">请再次输入密码(最多8位)</string>
     <string name="qsign">确认注册</string>
     <string name="start">开始游戏</string>
 </resources>

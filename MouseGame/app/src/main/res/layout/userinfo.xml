@@ -25,5 +25,19 @@
             android:textSize="27sp"
             android:textStyle="bold"
             android:textColor="@color/black"/>
+    <EditText
+            android:id="@+id/et_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/et_text"
+            android:textColor="@color/black"
+            android:enabled="true"
+            android:gravity="top"
+            android:minLines="10"
+            android:maxLines="20"
+            android:scrollbars="vertical"
+
+    />
 
 </RelativeLayout>

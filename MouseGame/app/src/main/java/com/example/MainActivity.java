@@ -1,5 +1,6 @@
 package com.example;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,9 +8,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import com.example.SqLiteDB.DBOperation;
 import com.example.mousegame.IndexActivity;
 import com.example.mousegame.R;
 import com.example.mousegame.SignActivity;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     private EditText edtName,edtPwd;
@@ -17,47 +21,42 @@ public class MainActivity extends AppCompatActivity {
     private TextView btnSign;
     private CheckBox chkSave;
     private String userName,userPwd;
-    private boolean isSave,isAuto;
+    private boolean isSave;
+    private SQLiteDatabase sqLiteDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         initView();
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        read();
+        DBTest();
+        DBOperation dbOperation = new DBOperation(sqLiteDatabase);
+        dbOperation.dBTest();//创建库、表
 
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, IndexActivity.class);
-                MainActivity.this.startActivity(intent);
+        btnLogin.setOnClickListener(view -> {
+            String name = edtName.getText().toString().trim();
+            String pwd = edtPwd.getText().toString().trim();
+            boolean save= chkSave.isChecked();
+            if(name.equals("") || pwd.equals("")){
+                Toast.makeText(MainActivity.this,"请输入完整信息登录!",Toast.LENGTH_SHORT).show();
+            } else{
+                if(dbOperation.getPwdByUser(name,pwd)){
+                    if(save){
+                        write(name,pwd,save);
+                    }
+                    Intent intent=new Intent(MainActivity.this, IndexActivity.class);
+                    System.out.println("登录者："+name);
+                    intent.putExtra("user", name);//设置参数
+                    MainActivity.this.startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this,"账号或密码错误!",Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        btnSign.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, SignActivity.class);
-                MainActivity.this.startActivity(intent);
-            }
+        btnSign.setOnClickListener(view -> {
+            Intent intent=new Intent(MainActivity.this, SignActivity.class);
+            MainActivity.this.startActivity(intent);
         });
-//        read();
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean save=chkSave.isChecked()?true:false;
-//                boolean auto=chkLogin.isChecked()?true:false;
-//                String username=edtName.getText().toString();
-//                String userpwd=edtPwd.getText().toString();
-//                if(save){
-//                    write(username,userpwd,save,auto);
-//                    Toast.makeText(MainActivity.this,"登录信息已经保存",Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(MainActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
-//                }
-//                Intent intent=new Intent(MainActivity.this,IndexActivity.class);
-//                MainActivity.this.startActivity(intent);
-//            }
-//        });
     }
     void initView(){
         edtName=this.findViewById(R.id.et_username);//账号
@@ -66,28 +65,30 @@ public class MainActivity extends AppCompatActivity {
         btnSign=this.findViewById(R.id.btn_register);//注册
         btnLogin=this.findViewById(R.id.btn_login);//登录
     }
-//    void read(){
-//        SharedPreferences sharedPreferences=getSharedPreferences("userconfig",MODE_PRIVATE);
-//        userName=sharedPreferences.getString("loginname","");
-//        userPwd=sharedPreferences.getString("loginpwd","");
-//        isSave=sharedPreferences.getBoolean("loginsave",false);
-//        isAuto=sharedPreferences.getBoolean("loginauto",false);
-//        if(isSave){
-//            edtName.setText(userName);
-//            edtPwd.setText(userPwd);
-//        }
-//        if(isAuto){
-//            Intent intent=new Intent(MainActivity.this,IndexActivity.class);
-//            MainActivity.this.startActivity(intent);
-//        }
-//    }
-//    void write(String userName,String userPwd,boolean isSave,boolean isAuto){
-//        SharedPreferences sharedPreferences=getSharedPreferences("userconfig",MODE_PRIVATE);
-//        SharedPreferences.Editor editor=sharedPreferences.edit();
-//        editor.putString("loginname",userName);
-//        editor.putString("loginpwd",userPwd);
-//        editor.putBoolean("loginsave",isSave);
-//        editor.putBoolean("loginauto",isAuto);
-//        editor.commit();
-//    }
+    void read(){
+        SharedPreferences sharedPreferences=getSharedPreferences("userconfig",MODE_PRIVATE);
+        userName=sharedPreferences.getString("loginname","");
+        userPwd=sharedPreferences.getString("loginpwd","");
+        isSave=sharedPreferences.getBoolean("loginsave",false);
+        if(isSave){
+            edtName.setText(userName);
+            edtPwd.setText(userPwd);
+            chkSave.setChecked(isSave);
+        }
+    }
+    void write(String userName,String userPwd,boolean isSave){
+        SharedPreferences sharedPreferences=getSharedPreferences("userconfig",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("loginname",userName);
+        editor.putString("loginpwd",userPwd);
+        editor.putBoolean("loginsave",isSave);
+        editor.apply();
+    }
+    void DBTest(){
+        File file=this.getDatabasePath("database").getParentFile();
+        if(!file.exists()){
+            file.mkdir();
+        }
+        sqLiteDatabase=openOrCreateDatabase(file.toString() + File.separator + "testDB.db",MODE_PRIVATE, null);
+    }
 }

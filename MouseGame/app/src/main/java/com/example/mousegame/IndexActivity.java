@@ -11,12 +11,16 @@ import com.example.MainActivity;
 public class IndexActivity extends AppCompatActivity {
     private TextView goOut;
     private Button btnJd,btnPt,btnKn,btnMyInfo;
+    private String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index);
         initView();
 
+        Intent intent1=getIntent();
+        name = intent1.getStringExtra("user");
+        System.out.println("IndexActivity:"+name);
         //退出登录
         goOut.setOnClickListener(view -> {
             Intent intent=new Intent(IndexActivity.this, MainActivity.class);
@@ -26,24 +30,31 @@ public class IndexActivity extends AppCompatActivity {
         //简单模式
         btnJd.setOnClickListener(view -> {
             Intent intent=new Intent(IndexActivity.this, GameActivity.class);
+            intent.putExtra("username", name);//设置参数
+            intent.putExtra("message", "1");//设置参数
             IndexActivity.this.startActivity(intent);
         });
 
         //普通模式
         btnPt.setOnClickListener(view -> {
             Intent intent=new Intent(IndexActivity.this, GameActivity.class);
+            intent.putExtra("username", name);//设置参数
+            intent.putExtra("message", "2");//设置参数
             IndexActivity.this.startActivity(intent);
         });
 
         //困难模式
         btnKn.setOnClickListener(view -> {
             Intent intent=new Intent(IndexActivity.this, GameActivity.class);
+            intent.putExtra("username", name);//设置参数
+            intent.putExtra("message", "3");//设置参数
             IndexActivity.this.startActivity(intent);
         });
 
         //我的战绩
         btnMyInfo.setOnClickListener(view -> {
             Intent intent=new Intent(IndexActivity.this, MyActivity.class);
+            intent.putExtra("username", name);//设置参数
             IndexActivity.this.startActivity(intent);
         });
     }

@@ -28,6 +28,8 @@
             android:layout_below="@id/iv_1"
             android:layout_marginTop="10dp"
             android:hint="@string/username"
+            android:inputType="number"
+            android:maxLength="8"
             android:lines="1"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
@@ -38,7 +40,8 @@
             android:layout_below="@id/et_username"
             android:layout_marginTop="10dp"
             android:hint="@string/userpwd"
-            android:inputType="textPassword"
+            android:inputType="numberPassword"
+            android:maxLength="8"
             android:lines="1"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />

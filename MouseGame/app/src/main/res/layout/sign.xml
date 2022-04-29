@@ -50,6 +50,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:inputType="number"
+                android:maxLength="8"
                 android:hint="@string/username"
                 android:textSize="20sp"
                 android:textColorHint="@color/white"/>
@@ -79,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:hint="@string/userpwd"
+                android:maxLength="8"
                 android:inputType="numberPassword"
                 android:textSize="20sp"
                 android:textColorHint="@color/white"/>
@@ -109,6 +112,7 @@
                 android:layout_weight="5"
                 android:inputType="numberPassword"
                 android:hint="@string/userpwd2"
+                android:maxLength="8"
                 android:textSize="20sp"
                 android:textColorHint="@color/white"/>
     </LinearLayout>
