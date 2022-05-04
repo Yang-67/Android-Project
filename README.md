@@ -12,4 +12,7 @@
 3. NewsNow
 
    此项目实现类仿今日头条界面
+   
+4. androidProject
 
+   此项目采用SQLite实现简单的学生管理CRUD
