@@ -32,6 +32,8 @@ public class GameActivity extends Activity implements View.OnClickListener{
     String name;
     private SQLiteDatabase sqLiteDatabase;
     private DBOperation dbOperation;
+    Thread thread1;
+    int startFlag = 0;
     @SuppressLint("HandlerLeak")
     Handler handler=new Handler(){
         @Override
@@ -92,9 +94,12 @@ public class GameActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_start:
-                new MyCount(60*1000,1000).start();
-                Thread thread1=new Thread(runnable);
-                thread1.start();
+                if(startFlag==0){
+                    new MyCount(60*1000,1000).start();
+                    thread1=new Thread(runnable);
+                    thread1.start();
+                    startFlag=1;
+                }
                 break;
             default:
                 if(images[oldID].getId() == view.getId() && flag){
